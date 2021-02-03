@@ -1,16 +1,20 @@
 object Solution {
-  final case class Gap(biggest: Int, current: Int)
+  final case class Gap(biggest: Int = 0, current: Int = 0)
 
-  def solution(n: Int): Int = {
-    n.toBinaryString.foldLeft(Gap(0, 0)) { (gap, n) =>
+  def solution(n: Int): Int = { // 100%
+    val binaryString = n.toBinaryString
+    binaryString.foldLeft(Gap()) { (gap, n) => {
       n match {
         case '0' =>
-          val current = gap.current + 1
-          gap.copy(if (current > gap.biggest) current else gap.biggest, current)
-        case '1' => gap.copy(current = 0)
+          gap.copy(current = gap.current + 1)
+        case '1' =>
+          gap.copy(
+            biggest = if (gap.current > gap.biggest) gap.current else gap.biggest,
+            current = 0
+          )
         case _ => ??? // can't happen. could be type-safe with an ADT
       }
-    }.biggest
+    }}.biggest
   }
 }
 
