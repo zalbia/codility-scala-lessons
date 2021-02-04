@@ -4,9 +4,9 @@ object Solution {
   def solution(x: Int, as: Array[Int]): Int = { // 100%
     val spots = mutable.Set[Int]()
     var earliestTime = -1
-    as.zipWithIndex.takeWhile { case (a, i) =>
+    as.zipWithIndex.takeWhile { case (a, k) =>
       spots += a
-      if (spots.size == x) earliestTime = i
+      if (spots.size == x) earliestTime = k
       spots.size != x
     }
     earliestTime
