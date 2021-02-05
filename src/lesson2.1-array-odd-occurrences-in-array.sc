@@ -4,7 +4,6 @@ import scala.collection.mutable
 // println("this is a debug message")
 
 object Solution {
-  type Paired = Boolean
 
   /**
    * Assumptions:
@@ -16,11 +15,8 @@ object Solution {
   def solution(as: Array[Int]): Int = { // 100%
     val candidates = mutable.Set[Int]()
     as.foreach { a =>
-      if (candidates(a)) {
-        candidates -= a
-      } else {
-        candidates += a
-      }
+      if (candidates(a)) candidates -= a
+      else candidates += a
     }
     candidates.head // head is safe here as there is always 1 answer
   }
