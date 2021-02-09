@@ -24,7 +24,7 @@ import utest._
 
 import scala.util.Random
 
-object PermutationTests extends TestSuite {
+object PermCheckTests extends TestSuite {
   val random = new Random()
   val f = Solution.solution _
 
