@@ -4,7 +4,7 @@ import scala.util.Sorting
 object Solution {
   val limit = 10000000
 
-  def solution(a: Array[Int]) = { // 100% O(n*log(n))
+  def solution(a: Array[Int]): Int = { // 100% O(n*log(n))
     val lastIndex = a.length * 2 - 1
     borders(a).zipWithIndex.scanLeft((0, 0L, false)) {
       case ((openDiscs, count, _), (borderStart, i)) =>
