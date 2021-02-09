@@ -1,4 +1,6 @@
+.bsp
 target/
 project/target
 .idea
+scratch.sc
 null

@@ -1,7 +1,7 @@
 package lessons._04.counting_elements._3
 
 object Solution {
-  def solution(a: Array[Int]): Int = // 100%
+  def solution(a: Array[Int]): Int = // 100% | O(n * log(n))
     a.sorted.iterator.filter(_ > 0).fold(1)((smallest, a) =>
       if (smallest == a) a + 1 else smallest
     )
