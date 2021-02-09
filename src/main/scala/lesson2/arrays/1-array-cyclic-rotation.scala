@@ -1,3 +1,5 @@
+package lesson2.arrays
+
 import scala.annotation.tailrec
 
 object Solution {
