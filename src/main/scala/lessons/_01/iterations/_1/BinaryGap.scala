@@ -1,6 +1,4 @@
-import utest.Tests
-
-import scala.util.{Failure, Success}
+package lessons._01.iterations._1
 
 object Solution {
   // N is an integer within the range [1..2,147,483,647].
@@ -15,11 +13,11 @@ object Solution {
     }._1
 }
 
-val f = Solution.solution _
-
 import utest._
 
-object SolutionTests extends TestSuite {
+object BinaryGapTests extends TestSuite {
+  val f = Solution.solution _
+
   val tests = utest.Tests {
     test { assert(f(1) == 0) }
     test { assert(f(2) == 0) }
@@ -33,9 +31,4 @@ object SolutionTests extends TestSuite {
     test { assert(f(Int.MaxValue) == 0) }
     test { assert(f(1073741825) == 29) }
   }
-}
-
-TestRunner.run(SolutionTests.tests).leaves.map(_.value).foreach {
-  case Failure(exception) => println(exception)
-  case Success(value) => println(value)
 }
