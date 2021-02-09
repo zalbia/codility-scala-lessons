@@ -1,4 +1,8 @@
 object Solution {
+  // N is an integer within the range [1..100,000];
+  // each element of array A is an integer within the range [0..1,000,000,000];
+  // each element of array B is an integer that can have one of the following values: 0, 1;
+  // the elements of A are all distinct.
   def solution(a: Array[Int], b: Array[Int]): Int = { // 100% O(n)
     a.iterator.zip(Going.fromZerosAndOnes(b.iterator)).foldLeft(Survivors()) {
       case (survivors @ Survivors(Nil, _), (_, Going.Upstream)) =>

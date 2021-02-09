@@ -1,26 +1,41 @@
+import utest.Tests
+
+import scala.util.{Failure, Success}
+
 object Solution {
-  def solution(n: Int): Int = { // 100%
-    var biggest = 0
-    var current = 0
-    n.toBinaryString.foreach { n => {
-      n match {
-        case '0' => current += 1
-        case '1' => current = 0
-      }
-      if (current > biggest) biggest = current
-    }}
-    biggest
+  // N is an integer within the range [1..2,147,483,647].
+  def solution(n: Int): Int = // 100% O(log n)
+    n.toBinaryString.foldLeft((0, 0)) {
+      case ((biggestGap, currentGap), bit) =>
+        bit match {
+          case '0' => (biggestGap, currentGap + 1)
+          case '1' => (if (currentGap > biggestGap) currentGap else biggestGap, 0)
+          case _ => ??? // make compiler happy. don't do this in production!
+        }
+    }._1
+}
+
+val f = Solution.solution _
+
+import utest._
+
+object SolutionTests extends TestSuite {
+  val tests = utest.Tests {
+    test { assert(f(1) == 0) }
+    test { assert(f(2) == 0) }
+    test { assert(f(9) == 2) }
+    test { assert(f(10) == 1) }
+    test { assert(f(32) == 0) }
+    test { assert(f(37) == 2) }
+    test { assert(f(273) == 3) }
+    test { assert(f(4375) == 3) }
+    test { assert(f(4096) == 0) }
+    test { assert(f(Int.MaxValue) == 0) }
+    test { assert(f(1073741825) == 29) }
   }
 }
 
-import Solution.solution
-
-solution(0)    // 0              1
-solution(1)    // 1              0
-solution(2)    // 10             1
-solution(9)    // 1001           2
-solution(6)    // 1010           1
-solution(37)   // 100101         2
-solution(273)  // 100010001      3
-solution(4375) // 1000100010111  3
-solution(4096) // 1000000000000  12
+TestRunner.run(SolutionTests.tests).leaves.map(_.value).foreach {
+  case Failure(exception) => println(exception)
+  case Success(value) => println(value)
+}
