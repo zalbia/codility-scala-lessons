@@ -12,7 +12,6 @@ object SolutionTests extends TestSuite {
 
   val tests = Tests {
     test { f }
-
   }
 
   def check(a: Nothing, expected: Nothing): Unit = {
