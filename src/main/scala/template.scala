@@ -3,6 +3,7 @@ object Solution {
 }
 
 import utest._
+
 import scala.util.Random
 
 object SolutionTests extends TestSuite {
@@ -10,6 +11,8 @@ object SolutionTests extends TestSuite {
   val f = Solution.solution _
 
   val tests = Tests {
-    test { f }
+    test {
+      f
+    }
   }
 }
