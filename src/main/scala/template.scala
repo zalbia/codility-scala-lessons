@@ -1,5 +1,5 @@
 object Solution {
-  def solution = ???
+  def solution(a: Nothing) = ???
 }
 
 import utest._
@@ -11,8 +11,12 @@ object SolutionTests extends TestSuite {
   val f = Solution.solution _
 
   val tests = Tests {
-    test {
-      f
-    }
+    test { f }
+
+  }
+
+  def check(a: Nothing, expected: Nothing): Unit = {
+    val result = f(a)
+    assert(result == expected)
   }
 }
