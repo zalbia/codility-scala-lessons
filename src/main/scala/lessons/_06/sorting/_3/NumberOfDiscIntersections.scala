@@ -1,3 +1,5 @@
+package lessons._06.sorting._3
+
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Sorting
 
@@ -37,12 +39,21 @@ object Solution {
   }
 }
 
+import utest._
+
 import scala.util.Random
 
-val random = new Random()
+object NumberOfDiscIntersectionsTests extends TestSuite {
+  val random = new Random()
+  val f = Solution.solution _
 
-val f = Solution.solution _
+  val tests = Tests {
+    test("example") { check(Array(1, 5, 2, 1, 4, 0), 11) }
+    // TODO: add more tests
+  }
 
-val example = Array(1, 5, 2, 1, 4, 0)
-
-f(example) // 11
+  def check(a: Array[Int], expected: Int): Unit = {
+    val result = f(a)
+    assert(result == expected)
+  }
+}
