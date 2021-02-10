@@ -3,7 +3,7 @@ package lessons._05.prefix_sums._3
 object Solution {
   // N is an integer within the range [2..100,000];
   // each element of array A is an integer within the range [−10,000..10,000].
-  def solution(a: Array[Int]): Int = { // 90%
+  def solution(a: Array[Int]): Int = { // 100% | O(n)
     (minAvgSliceN(a, 2), minAvgSliceN(a, 3)) match {
       case ((slice2, slice2Start), (slice3, slice3Start)) =>
         val avg2 = slice2 * 6 / 2 // avoid floating-point and
@@ -14,12 +14,21 @@ object Solution {
     }
   }
 
-  // could be faster, but this reads better to me so meh
-  private def minAvgSliceN(a: Array[Int], n: Int) =
+  /**
+   * Notes:
+   *
+   * <ul>
+   *   <li> sacrifices some tuple allocation for more readability </li>
+   *   <li> a.iterator minimizes array allocations </li>
+   *   <li> sliding iterators are allocated instead of arrays </li>
+   * </ul>
+   */
+  private def minAvgSliceN(a: Array[Int], n: Int) = {
     a.iterator.sliding(n).map(_.sum).zipWithIndex.foldLeft((Int.MaxValue, -1)) {
-      case ((min, minP), (a, p)) =>
-        if (a < min) (a, p) else (min, minP)
+      case ((minSliceSum, minP), (sliceSum, p)) =>
+        if (sliceSum < minSliceSum) (sliceSum, p) else (minSliceSum, minP)
     }
+  }
 }
 
 import utest._

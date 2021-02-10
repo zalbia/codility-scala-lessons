@@ -1,14 +1,29 @@
 package lessons._02.arrays._2
 
+import scala.collection.mutable
+
 object Solution {
   // N is an odd integer within the range [1..1,000,000];
   // each element of array A is an integer within the range [1..1,000,000,000];
   // all but one of the values in A occur an even number of times.
+  def solution(a: Array[Int]): Int = { // 100%
+    val candidates = mutable.Set[Int]()
+    a.foreach { a =>
+      if (candidates(a)) candidates -= a
+      else candidates += a
+    }
+    candidates.head // head is safe here as there is always 1 answer
+  }
+}
+
+object Alternative {
+  // set is persistent. equally viable with mutable.Set here
+  // about as readable as the imperative solution
   def solution(a: Array[Int]): Int = // 100%
     a.foldLeft(Set.empty[Int]) { (candidates, a) =>
       if (candidates(a)) candidates - a
       else candidates + a
-    }.head // head is safe here as there is always 1 answer
+    }.head
 }
 
 import utest._
