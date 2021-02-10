@@ -1,3 +1,5 @@
+import scala.collection.JavaConverters._
+
 object Solution {
   def solution(a: Nothing) = ???
 }
@@ -11,7 +13,7 @@ object SolutionTests extends TestSuite {
   val f = Solution.solution _
 
   val tests = Tests {
-    test { f }
+    test { check(???, ???) }
   }
 
   def check(a: Nothing, expected: Nothing): Unit = {

@@ -1,7 +1,7 @@
 package lessons._06.sorting._1
 
 object Solution {
-  def solution(a: Array[Int]) = // 100%, O(n log n), can be O(n) with set
+  def solution(a: Array[Int]): Int = // 100%, O(n log n), can be O(n) with set
     if (a.length <= 1) a.length
     else a.sorted.iterator.sliding(2).count(l => l.exists(_ != l.head)) + 1
 }
