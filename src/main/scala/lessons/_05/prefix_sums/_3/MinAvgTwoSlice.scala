@@ -13,21 +13,15 @@ object Solution {
         else math.min(slice2Start, slice3Start)
     }
   }
-
-  /**
-   * Notes:
-   *
-   * <ul>
-   *   <li> sacrifices some tuple allocation for more readability </li>
-   *   <li> a.iterator minimizes array allocations </li>
-   *   <li> sliding iterators are allocated instead of arrays </li>
-   * </ul>
-   */
+  
+  // sacrifices some tuple allocation for more readability </li>
+  // a.iterator minimizes array allocations </li>
+  // sliding iterators are allocated instead of arrays </li>
   private def minAvgSliceN(a: Array[Int], n: Int) = {
-    a.iterator.sliding(n).map(_.sum).zipWithIndex.foldLeft((Int.MaxValue, -1)) {
+    a.iterator.sliding(n).map(_.sum).zipWithIndex.reduceLeft { (a, b) => (a, b) match {
       case ((minSliceSum, minP), (sliceSum, p)) =>
         if (sliceSum < minSliceSum) (sliceSum, p) else (minSliceSum, minP)
-    }
+    }}
   }
 }
 

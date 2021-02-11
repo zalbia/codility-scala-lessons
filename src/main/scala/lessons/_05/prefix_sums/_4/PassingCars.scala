@@ -1,16 +1,19 @@
 package lessons._05.prefix_sums._4
 
+// N is an integer within the range [1..100,000];
+// a in A : [0, 1]
 object Solution {
-  // N is an integer within the range [1..100,000];
-  // a in A : [0, 1]
+  val max = 1000000000
+
+  // early-exit
   def solution(a: Array[Int]): Int = { // 100% | O(n)
     var zeros = 0
     var passingCars = 0L
-    a.foreach {
-      case 0 => zeros += 1
-      case 1 => passingCars += zeros
+    for (elem <- a if passingCars <= max) {
+      if (elem == 0)  zeros += 1
+      else passingCars += zeros
     }
-    if (passingCars > 1000000000) -1 else passingCars.toInt
+    if (passingCars > max) -1 else passingCars.toInt
   }
 }
 
