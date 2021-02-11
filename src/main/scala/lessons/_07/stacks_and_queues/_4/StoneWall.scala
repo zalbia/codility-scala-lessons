@@ -6,13 +6,13 @@ object Solution {
   def solution(h: Array[Int]): Int = { // O(n) | 100%
     var blockCount = 0
     var stack = List.empty[Int]
-    for (h <- h) {
-      stack = stack.dropWhile(_ > h)
+    for (height <- h) {
+      stack = stack.dropWhile(_ > height)
       stack match {
-        case top :: _ if top == h => ()
+        case top :: _ if top == height => ()
         case _ =>
           blockCount += 1
-          stack = h :: stack
+          stack = height :: stack
       }
     }
     blockCount
