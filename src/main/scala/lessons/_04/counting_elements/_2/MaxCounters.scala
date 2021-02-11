@@ -1,12 +1,12 @@
 package lessons._04.counting_elements._2
 
-object Solution {
+// N and M are integers within the range [1..100,000];
+// M = a.size
+// each element of array A is an integer within the range [1..N + 1]
 
-  // N and M are integers within the range [1..100,000];
-  // M = a.size
-  // each element of array A is an integer within the range [1..N + 1]
-  def solution(n: Int, a: Array[Int]): Array[Int] = { // 100%
-    // TODO: improve readability
+object Solution {
+  // would look bloody as a fold
+  def solution(n: Int, a: Array[Int]): Array[Int] = { // 100% | O(n + m)
     val counters = Array.ofDim[Int](n)
     var maxCounter = 0
     var offset = 0
