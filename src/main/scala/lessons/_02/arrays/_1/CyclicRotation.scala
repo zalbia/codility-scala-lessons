@@ -23,14 +23,16 @@ object Alternative1 {
 
 object Alternative2 {
   // fast, but verbose & mechanical af
+  // minimal allocations
   // array access is unsafe
   def solution(a: Array[Int], k: Int): Array[Int] = { // 100% | time: O(n) | space: O(n)
     if (a.isEmpty || k % a.length == 0) a
     else {
       val rotation = Array.ofDim[Int](a.length) // only one array allocation
       for (i <- a.indices) { // allocates a Range
-        val j = i - k % a.length
-        rotation(i) = a(if (j < 0) a.length + j else j)
+        val complement = i - k % a.length
+        val offset = if (complement < 0) a.length + complement else complement
+        rotation(i) = a(offset)
       }
       rotation
     }
