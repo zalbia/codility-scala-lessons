@@ -6,7 +6,6 @@ import scala.collection.mutable
 // each element of array A is an integer within the range [1..1,000,000,000];
 // all but one of the values in A occur an even number of times.
 object Solution {
-  // what a load of crap for interviews...
   // have to know/remember some niche XOR tricks
   // allocates a reducer
   def solution(a: Array[Int]): Int = // 100% | T: O(n) | S: O(1)
@@ -41,17 +40,28 @@ import scala.util.Random
 
 object OddOccurrencesInArrayTests extends TestSuite {
   val random = new Random()
-  val f = Solution.solution _
+  val solutions = Array(
+    Solution.solution _,
+    Alternative1.solution _,
+    Alternative2.solution _
+  )
 
   val tests = Tests {
-    test { assert(f(Array(9, 3, 9, 3, 9, 7, 9)) == 7) }
-    test { assert(f(Array(1)) == 1) }
-    test { assert(f(Array(1, 1, 2)) == 2) }
-    test { assert(f(Array(1, 2, 2)) == 1) }
-    test { assert(f(Array(1, 3, 3)) == 1) }
-    test { assert(f(Array(1, 2, 2, 3, 3)) == 1) }
-    test { assert(f(Array(2, 2, 1, 3, 3)) == 1) }
-    test { assert(f(Array(2, 1, 3, 2, 3)) == 1) }
-    test { assert(f(Array.fill(999998)(1000000000) :+ 123) == 123) }
+    test { check(Array(9, 3, 9, 3, 9, 7, 9), 7)  }
+    test { check(Array(1), 1)  }
+    test { check(Array(1, 1, 2), 2)  }
+    test { check(Array(1, 2, 2), 1)  }
+    test { check(Array(1, 3, 3), 1)  }
+    test { check(Array(1, 2, 2, 3, 3), 1)  }
+    test { check(Array(2, 2, 1, 3, 3), 1)  }
+    test { check(Array(2, 1, 3, 2, 3), 1)  }
+    test { check(Array.fill(999998)(1000000000) :+ 123, 123)  }
+    
+    def check(a: Array[Int], expected: Int): Unit = {
+      solutions.foreach { f =>
+        val result = f(a)
+        assert(result == expected)
+      }
+    }
   }
 }
