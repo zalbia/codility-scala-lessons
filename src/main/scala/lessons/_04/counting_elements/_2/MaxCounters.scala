@@ -5,14 +5,14 @@ package lessons._04.counting_elements._2
 // each element of array A is an integer within the range [1..N + 1]
 
 object Solution {
-  // would look bloody as a fold
+  // mostly procedural solution
   def solution(n: Int, a: Array[Int]): Array[Int] = { // 100% | O(n + m)
     val counters = Array.ofDim[Int](n)
     var maxCounter = 0
     var offset = 0
-    for (i <- a.indices) {
-      if (a(i) <= n) {
-        val counterIdx = a(i) - 1
+    for (elem <- a) {
+      if (elem <= n) {
+        val counterIdx = elem - 1
         if (counters(counterIdx) < offset)
           counters(counterIdx) = offset + 1
         else
@@ -20,10 +20,52 @@ object Solution {
 
         if (counters(counterIdx) > maxCounter)
           maxCounter = counters(counterIdx)
-      } else if (a(i) == n + 1)
+      } else if (elem == n + 1)
         offset = maxCounter
     }
     counters.map(math.max(offset, _))
+  }
+}
+
+object OopAlternative {
+  // "OOP" solution
+  def solution(n: Int, a: Array[Int]): Array[Int] = {
+    val maxCounters = MaxCounters.create(n)
+    a.foreach(elem =>
+      if (elem <= n) maxCounters.maxCount(elem)
+      else maxCounters.max()
+    )
+    maxCounters.finalCounter()
+  }
+
+  // could declare inside solution, just wouldn't read as well
+  private[_2] class MaxCounters private(
+    private val counters: Array[Int],
+    private var maxCounter: Int = 0,
+    private var offset: Int = 0
+  ) {
+    def maxCount(elem: Int): Unit = {
+      if (count(elem) < offset)
+        setCount(elem)(offset + 1)
+      else
+        setCount(elem)(count(elem) + 1)
+
+      if (count(elem) > maxCounter)
+        maxCounter = count(elem)
+    }
+
+    private def count(elem: Int): Int =
+      counters(elem - 1)
+    private def setCount(elem: Int)(value: Int): Unit =
+      counters(elem - 1) = value
+
+    def max(): Unit = offset = maxCounter
+
+    def finalCounter(): Array[Int] = counters.map(math.max(offset, _))
+  }
+
+  private[_2] object MaxCounters {
+    def create(n: Int) = new MaxCounters(Array.ofDim(n))
   }
 }
 
@@ -31,9 +73,12 @@ import utest._
 
 import scala.util.Random
 
-object SolutionTests extends TestSuite {
+object MaxCountersTests extends TestSuite {
   val random = new Random()
-  val f = Solution.solution _
+  val solutions = Array(
+    Solution.solution _,
+    OopAlternative.solution _
+  )
 
   val tests = Tests {
     test("example") {
@@ -48,9 +93,11 @@ object SolutionTests extends TestSuite {
   }
 
   private def check(n: Int, a: Array[Int], expected: Array[Int]): Unit = {
-    val maxCounters = f(n, a).toList
-    val length = maxCounters.length
-    assert(length == n)
-    assert(maxCounters == expected.toList)
+    solutions.foreach { f =>
+      val maxCounters = f(n, a).toList
+      val length = maxCounters.length
+      assert(length == n)
+      assert(maxCounters == expected.toList)
+    }
   }
 }
