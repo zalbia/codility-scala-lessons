@@ -7,7 +7,8 @@ object MaxCountersTests extends TestSuite {
   val random = new Random()
   val solutions = Array(
     Solution.solution _,
-    OopAlternative.solution _
+    OopAlternative.solution _,
+    FpAlternative.solution _
   )
 
   val tests = Tests {
@@ -27,7 +28,8 @@ object MaxCountersTests extends TestSuite {
       val maxCounters = f(n, a).toList
       val length = maxCounters.length
       assert(length == n)
-      assert(maxCounters == expected.toList)
+      val expectedList = expected.toList
+      assert(maxCounters == expectedList)
     }
   }
 }
