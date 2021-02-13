@@ -10,7 +10,7 @@ object Solution {
   // early exit
   private def balanced(s: String): Boolean = {
     var stack = List.empty[Char]
-    for (bracket <- s) {
+    for (bracket <- s)
       if (openClose.contains(bracket))
         stack = bracket :: stack // push
       else {
@@ -19,7 +19,6 @@ object Solution {
         if (bracket != openClose(top)) return false
         stack = stack.tail // pop
       }
-    }
     stack.isEmpty
   }
 }

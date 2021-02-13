@@ -7,10 +7,10 @@ package lessons._04.counting_elements._2
 object Solution {
   // mostly procedural solution
   def solution(n: Int, a: Array[Int]): Array[Int] = { // 100% | O(n + m)
-    val counters = Array.ofDim[Int](n)
+    val counters   = Array.ofDim[Int](n)
     var maxCounter = 0
-    var offset = 0
-    for (elem <- a) {
+    var offset     = 0
+    for (elem <- a)
       if (elem <= n) {
         val elemIdx = elem - 1
         if (counters(elemIdx) < offset) //
@@ -22,7 +22,6 @@ object Solution {
           maxCounter = counters(elemIdx)
       } else if (elem == n + 1)
         offset = maxCounter
-    }
     counters.map(math.max(offset, _))
   }
 }
@@ -39,7 +38,7 @@ object OopAlternative {
   }
 
   // could declare inside solution method, just wouldn't read as well
-  private[_2] final class MaxCounters private(
+  private[_2] final class MaxCounters private (
     private val counters: Array[Int],
     private var maxCounter: Int = 0,
     private var totalOffset: Int = 0
@@ -52,14 +51,14 @@ object OopAlternative {
       updateMaxCounter(elem)
     }
 
-    private def updateMaxCounter(elem: Int): Unit =
+    private def updateMaxCounter(elem: Int): Unit     =
       maxCounter = math.max(currentCount(elem), maxCounter)
-    private def currentCount(elem: Int): Int =
+    private def currentCount(elem: Int): Int          =
       counters(elem - 1)
     private def setCount(elem: Int)(value: Int): Unit =
       counters(elem - 1) = value
 
-    def max(): Unit = totalOffset = maxCounter
+    def max(): Unit                = totalOffset = maxCounter
     def finalCounter(): Array[Int] = counters.map(math.max(totalOffset, _))
   }
 
@@ -75,7 +74,8 @@ object FpAlternative {
     a.foldLeft(MaxCounters(n)) { (maxCounters, elem) => // fold is just a pure foreach
       if (elem <= n) maxCounters.count(elem)
       else maxCounters.max
-    }.finalCounter.toArray
+    }.finalCounter
+      .toArray
 
   final case class MaxCounters private (
     counters: Vector[Int],
@@ -91,15 +91,15 @@ object FpAlternative {
       elemCounted.updateMaxCounter(elem)
     }
 
-    def updateMaxCounter(elem: Int): MaxCounters =
+    def updateMaxCounter(elem: Int): MaxCounters     =
       copy(currentMax = math.max(currentCount(elem), currentMax))
-    def currentCount(elem: Int): Int =
+    def currentCount(elem: Int): Int                 =
       counters(elem - 1)
     def setCount(elem: Int)(value: Int): MaxCounters =
       copy(counters.updated(elem - 1, value))
 
     // without lazy, causes stack overflow
-    lazy val max = copy(totalOffset = currentMax)
+    lazy val max          = copy(totalOffset = currentMax)
     // without lazy, finalCounter is eagerly computed for every copy call (!!!)
     lazy val finalCounter = counters.map(math.max(totalOffset, _))
   }

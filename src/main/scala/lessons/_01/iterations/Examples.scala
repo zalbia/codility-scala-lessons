@@ -91,7 +91,7 @@ object Examples {
   }
 
   object fibonacci_to_n {
-    def whileLoop(n: Int) = {
+    def whileLoop(n: Int): Unit = {
       var a = 0
       var b = 1
       while (a <= n) {
@@ -102,11 +102,11 @@ object Examples {
       }
     }
 
-    def iterator(n: Int) =
+    def iterator(n: Int): Unit =
       Iterator
-        .iterate((0, 1)) { case (a, b) => (b, a + b) }
-        .takeWhile(_._1 <= n)
-        .map(_._1)
+        .iterate(start = (0, 1)) { case (a, b) => (b, a + b) }
+        .map { case (a, _) => a } // or .map(_._1)
+        .takeWhile(_ <= n)
         .foreach(println)
   }
 

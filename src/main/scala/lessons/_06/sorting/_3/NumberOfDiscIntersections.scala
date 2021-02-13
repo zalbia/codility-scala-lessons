@@ -11,15 +11,14 @@ object Solution {
   // functional early exits are verbose, but explicit
   def solution(a: Array[Int]): Int = { // 100% O(n*log(n))
     val lastIndex = a.length * 2 - 1
-    borders(a).zipWithIndex.scanLeft((0, 0L, false)) {
-      case ((openDiscs, count, _), (borderStart, i)) =>
-        if (borderStart) {
-          val newCount = count + openDiscs
-          val overLimit = newCount > limit
-          (openDiscs + 1, if (overLimit) -1 else newCount, overLimit || i == lastIndex)
-        } else { // borderEnd
-          (openDiscs - 1, count, i == lastIndex)
-        }
+    borders(a).zipWithIndex.scanLeft((0, 0L, false)) { case ((openDiscs, count, _), (borderStart, i)) =>
+      if (borderStart) {
+        val newCount  = count + openDiscs
+        val overLimit = newCount > limit
+        (openDiscs + 1, if (overLimit) -1 else newCount, overLimit || i == lastIndex)
+      } else { // borderEnd
+        (openDiscs - 1, count, i == lastIndex)
+      }
     }
   }.find(_._3).map(_._2.toInt).getOrElse(0)
 
@@ -32,13 +31,13 @@ object Solution {
     }
 
     val rangePoints = buffer.toArray // we sort this in place
-    Sorting.quickSort(rangePoints)((x: (Long, Boolean), y: (Long, Boolean)) => {
+    Sorting.quickSort(rangePoints) { (x: (Long, Boolean), y: (Long, Boolean)) =>
       val ((a, borderA), (b, borderB)) = (x, y)
       if (a != b) a compareTo b
       else if (borderA) -1
       else if (borderB) 1
       else 0
-    })
+    }
     rangePoints.iterator.map(_._2) // safely return an iterator
   }
 }

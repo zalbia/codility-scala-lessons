@@ -22,7 +22,7 @@ object Solution {
     val arr = Array.ofDim[Int](p.length)
     for (k <- p.indices) {
       val rangeStart = p(k)
-      val rangeEnd = q(k)
+      val rangeEnd   = q(k)
       for (impactLessOne <- prefixMinima(rangeEnd).indices if arr(k) == 0) {
         val impact = impactLessOne + 1
         val prefix = prefixMinima(rangeEnd)(impactLessOne)

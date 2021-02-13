@@ -10,6 +10,7 @@ object Solution {
       a + b > c && b + c > a && c + a > b
     }
     if (a.length < 3) 0
-    else if (a.sorted.iterator.map(_.toLong).sliding(3).exists(isTriangular)) 1 else 0
+    else if (a.sorted.iterator.map(_.toLong).sliding(3).exists(isTriangular)) 1
+    else 0
   }
 }
