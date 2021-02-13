@@ -91,6 +91,7 @@ object Examples {
   }
 
   object count_digits {
+
     object while_loop {
       def countDigits(n: Int) = {
         var result = 1
@@ -109,7 +110,6 @@ object Examples {
         def loop(n: Int, result: Int): Int =
           if (n > 9) loop(n / 10, result + 1)
           else result
-
         loop(n, 1)
       }
     }
@@ -122,6 +122,7 @@ object Examples {
   }
 
   object fibonacci_up_to_n {
+
     object while_loop {
       def fibonacciUpTo(n: Int): Unit = {
         var a = 0
@@ -146,6 +147,7 @@ object Examples {
   }
 
   object looping_over_collections {
+
     object array {
       val days = Array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 
