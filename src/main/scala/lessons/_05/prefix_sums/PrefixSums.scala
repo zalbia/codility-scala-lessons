@@ -1,6 +1,6 @@
 package lessons._05.prefix_sums
 
-object Examples {
+object PrefixSums {
 
   object counting_prefix_sums { // O(n)
 

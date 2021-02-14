@@ -1,6 +1,6 @@
 package lessons._02.arrays
 
-object Examples {
+object Arrays {
 
   object negative_air_temperatures {
     object for_loop {

@@ -1,6 +1,6 @@
 package lessons._01.iterations
 
-object Examples {
+object Iterations {
 
   object loops {
 

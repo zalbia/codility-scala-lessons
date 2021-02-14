@@ -1,6 +1,6 @@
 package lessons._03.time_complexity
 
-object Examples {
+object TimeComplexity {
 
   /**
    * <pre>

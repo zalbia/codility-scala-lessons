@@ -1,6 +1,6 @@
 package lessons._04.counting_elements
 
-object Examples {
+object CountingElements {
 
   object counting_elements {
 
