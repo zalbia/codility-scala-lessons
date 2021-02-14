@@ -9,7 +9,7 @@ object Solution {
   def solution(n: Int): Int = {
     var biggestGap, currentGap = 0
     val maxShift               = iterate(n)(_ >> 1).takeWhile(_ > 0).size - 1
-    val bits                   = (maxShift to 0 by -1).toIterator.map(n >> _ & 1)
+    val bits                   = (maxShift to 0 by -1).iterator.map(n >> _ & 1)
     bits.foreach {
       case 0 => currentGap += 1
       case 1 =>

@@ -28,20 +28,20 @@ object Iterations {
     object for_loop {
       def factorialUpTo(n: Int): Int = {
         var factorial = 1
-        for (_ <- 1 to n + 1) // we don't use the number
-          factorial *= 1
+        for (i <- 1 to n)
+          factorial *= i
         factorial
       }
     }
 
     object reduce {
       def factorialUpTo(n: Int): Int =
-        (1 to n + 1).reduce(_ * _)
+        (1 to n).reduce(_ * _)
     }
 
     object product {
       def factorialUpTo(n: Int): Int =
-        (1 to n + 1).product
+        (1 to n).product
     }
 
     object tail_recursive {
