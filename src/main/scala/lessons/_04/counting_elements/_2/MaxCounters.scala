@@ -38,11 +38,10 @@ object OopAlternative {
   }
 
   // could declare inside solution method, just wouldn't read as well
-  private[_2] final class MaxCounters private (
-    private val counters: Array[Int],
-    private var maxCounter: Int = 0,
+  private[_2] final class MaxCounters private (private val counters: Array[Int]) {
+    private var maxCounter: Int = 0
     private var totalOffset: Int = 0
-  ) {
+
     def count(elem: Int): Unit = { // 2 statements
       if (currentCount(elem) < totalOffset)
         setCount(elem)(totalOffset + 1)

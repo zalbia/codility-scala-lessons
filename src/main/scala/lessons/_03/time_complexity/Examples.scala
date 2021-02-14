@@ -2,6 +2,13 @@ package lessons._03.time_complexity
 
 object Examples {
 
+  /**
+   * <pre>
+   * ~10^6^ : O(n log n)
+   * ~10^4^ : O(n^2^)
+   * ~500 : O(n^3^)
+   * </pre>
+   */
   object time_complexity {
     def constant(n: Int) = // O(1)
       n * n
