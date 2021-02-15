@@ -8,7 +8,14 @@ object LeaderTests extends TestSuite {
 
   import Leader._
 
-  val solutions = Array(slowLeader _, fastLeader _, goldenLeader _, goldenLeaderStack _)
+  val solutions = Array(
+    slow_leader.array.slowLeader _,
+    slow_leader.map.slowLeader _,
+    fastLeader _,
+    golden_leader.constant_space.goldenLeader _,
+    golden_leader.stack.goldenLeader _,
+    golden_leader.constant_space.goldenLeader _
+  )
 
   val tests = Tests {
     test("example") { check(Array(6, 8, 4, 6, 8, 6, 6), 6) }
