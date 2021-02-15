@@ -56,16 +56,27 @@ object Sorting {
         for (i <- sortCopy.indices)
           counts(sortCopy(i)) += 1
         var cursor = 0
-        for (i <- 0 to k) {
+        for (i <- 0 to k)
           for (_ <- 0 until counts(i)) {
             sortCopy(cursor) = i
             cursor += 1
           }
-        }
         sortCopy
       }
     }
 
-    // todo: is it worth doing a functional version?
+    object functional {
+      // can replace Vector[Int] with ArraySeq[Int] in Scala >= 2.13
+      def countingSort(a: Vector[Int], k: Int): Vector[Int] = {
+        val buckets = Vector.fill(k + 1)(0)
+        val counts  = a.foldLeft(buckets)((b, a) => b.updated(a, b(a) + 1))
+        counts.toIterator.zipWithIndex
+          .foldLeft(Vector.empty[Int]) { case (b, (count, n)) => b ++ Vector.fill(count)(n) }
+      }
+    }
+  }
+
+  object built_in {
+    lazy val sorted = Array(5, 2, 8, 14, 1, 6).sorted
   }
 }
