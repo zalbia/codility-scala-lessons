@@ -1,6 +1,6 @@
 package lessons._08.leader
 
-object Examples {
+object Leader {
   type Elem  = Int
   type Count = Int
 

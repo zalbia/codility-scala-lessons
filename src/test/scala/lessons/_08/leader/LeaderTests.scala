@@ -3,10 +3,10 @@ import utest._
 
 import scala.util.Random
 
-object ExamplesTests extends TestSuite {
+object LeaderTests extends TestSuite {
   val random = new Random()
 
-  import Examples._
+  import Leader._
 
   val solutions = Array(slowLeader _, fastLeader _, goldenLeader _, goldenLeaderStack _)
 
