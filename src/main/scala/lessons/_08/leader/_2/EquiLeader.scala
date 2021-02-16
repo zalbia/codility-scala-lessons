@@ -7,13 +7,13 @@ object Solution {
     leader(a).map { leader =>
       val leftCounts  = a.scanLeft(0)(count(leader))
       val rightCounts = a.reverseIterator.scanLeft(0)(count(leader)).toArray
-      leftCounts.indices.iterator.map { s =>
-        val sLeft         = s
-        val sRight        = a.length - s
-        val leftCount     = leftCounts(sLeft)
-        val rightCount    = rightCounts(sRight)
-        val leftIsLeader  = leftCount > sLeft / 2
-        val rightIsLeader = rightCount > sRight / 2
+      leftCounts.indices.iterator.map { sliceIndex =>
+        val leftSlice     = sliceIndex
+        val rightSlice    = a.length - sliceIndex
+        val leftCount     = leftCounts(leftSlice)
+        val rightCount    = rightCounts(rightSlice)
+        val leftIsLeader  = leftCount > leftSlice / 2
+        val rightIsLeader = rightCount > rightSlice / 2
         leftIsLeader && rightIsLeader
       }.count(identity)
     }.getOrElse(0)

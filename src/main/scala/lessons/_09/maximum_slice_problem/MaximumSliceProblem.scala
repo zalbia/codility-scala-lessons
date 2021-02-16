@@ -81,11 +81,11 @@ object MaximumSliceProblem {
           def quadraticMaxSlice[A: Numeric](a: Array[A]): A = {
             val numeric = implicitly[Numeric[A]]
             a.indices.iterator.foldLeft(numeric.zero) { (maxAcc, p) =>
-              val (newMax, _) = (p until a.length).iterator.foldLeft((maxAcc, numeric.zero)) {
-                case ((result, sum), q) =>
+              val (newMax, _) = (p until a.length).iterator
+                .foldLeft((maxAcc, numeric.zero)) { case ((result, sum), q) =>
                   val newSum = numeric.plus(sum, a(q))
                   (numeric.max(result, newSum), newSum)
-              }
+                }
               newMax
             }
           }
@@ -110,11 +110,12 @@ object MaximumSliceProblem {
       object functional_style {
         def goldenMaxSlice[A: Numeric](a: Array[A]): A = {
           val numeric       = implicitly[Numeric[A]]
-          val (_, maxSlice) = a.foldLeft((numeric.zero, numeric.zero)) { case ((maxEnding, maxSlice), elem) =>
-            val newMaxEnding = numeric.max(numeric.zero, numeric.plus(maxEnding, elem))
-            val newMaxSlice  = numeric.max(maxSlice, newMaxEnding)
-            (newMaxEnding, newMaxSlice)
-          }
+          val (_, maxSlice) =
+            a.foldLeft((numeric.zero, numeric.zero)) { case ((maxEnding, maxSlice), elem) =>
+              val newMaxEnding = numeric.max(numeric.zero, numeric.plus(maxEnding, elem))
+              val newMaxSlice  = numeric.max(maxSlice, newMaxEnding)
+              (newMaxEnding, newMaxSlice)
+            }
           maxSlice
         }
       }
