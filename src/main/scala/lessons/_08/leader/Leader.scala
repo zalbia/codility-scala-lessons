@@ -79,13 +79,15 @@ object Leader {
       // you're left with a size and the mode
       // reduce the stack to just a size and the top element
       def goldenLeader(a: Array[Int]): Int = { // T: O(n) | S: O(1)
-        val (size, mode) = a.foldLeft((0, null.asInstanceOf[Int])) { // initial value doesn't matter
-          case ((0, _), elem)                         => (1, elem)
-          case ((size, value), elem) if value == elem => (size + 1, value)
-          case ((size, value), _)                     => (size - 1, value)
+        val (size, candidate) = a.foldLeft((0, Option.empty[Int])) {
+          case ((0, _), elem)                             => (1, Some(elem))
+          case ((size, Some(mode)), elem) if mode == elem => (size + 1, Some(mode))
+          case ((size, Some(mode)), _)                    => (size - 1, Some(mode))
         }
-        val candidate    = if (size > 0) Some(mode) else None // stack headOption
-        candidate.filter(c => a.count(_ == c) > a.length / 2).getOrElse(-1)
+        candidate
+          .filter(_ => size > 0)
+          .filter(c => a.count(_ == c) > a.length / 2)
+          .getOrElse(-1)
       }
     }
   }
