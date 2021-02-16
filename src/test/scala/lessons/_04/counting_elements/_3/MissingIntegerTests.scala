@@ -9,9 +9,9 @@ object MissingIntegerTests extends TestSuite {
 
   val tests = Tests {
     test("example") { check(Array(1, 3, 6, 4, 1, 2), 5) }
-    test { check(Array(1, 2, 3), 4) }
-    test { check(Array(-1, -3), 1) }
-    test { check(Array(-100000, 100000), 1) }
+    test(check(Array(1, 2, 3), 4))
+    test(check(Array(-1, -3), 1))
+    test(check(Array(-100000, 100000), 1))
   }
 
   private def check(a: Array[Int], expected: Int): Unit = {

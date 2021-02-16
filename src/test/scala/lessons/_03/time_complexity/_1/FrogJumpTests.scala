@@ -8,11 +8,11 @@ object FrogJumpTests extends TestSuite {
   val random = new Random()
 
   val tests = Tests {
-    test { check(1, 1, 1, 0) }
-    test { check(1, 1, 2, 0) }
-    test { check(1, 2, 1, 1) }
-    test { check(1, 1000000000, 1, 999999999) }
-    test { check(1, 1000000000, 2, 500000000) }
+    test(check(1, 1, 1, 0))
+    test(check(1, 1, 2, 0))
+    test(check(1, 2, 1, 1))
+    test(check(1, 1000000000, 1, 999999999))
+    test(check(1, 1000000000, 2, 500000000))
   }
 
   private def check(x: Int, y: Int, d: Int, expected: Int): Unit = {

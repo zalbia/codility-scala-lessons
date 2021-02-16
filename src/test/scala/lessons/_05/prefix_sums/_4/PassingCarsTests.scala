@@ -9,16 +9,16 @@ object PassingCarsTests extends TestSuite {
 
   val tests = Tests {
     test("example") { check(Array(0,1,0,1,1), 5) }
-    test { check(Array(0), 0) }
-    test { check(Array(0, 0), 0) }
-    test { check(Array(0, 1), 1) }
-    test { check(Array(1, 0), 0) }
-    test { check(Array(0, 0, 0), 0) }
-    test { check(Array(0, 0, 1), 2) }
-    test { check(Array(0, 1, 0), 1) }
-    test { check(Array(0, 1, 1), 2) }
-    test { check(Array(1, 0, 0), 0) }
-    test { check(Array(0, 1, 0, 1), 3) }
+    test(check(Array(0), 0))
+    test(check(Array(0, 0), 0))
+    test(check(Array(0, 1), 1))
+    test(check(Array(1, 0), 0))
+    test(check(Array(0, 0, 0), 0))
+    test(check(Array(0, 0, 1), 2))
+    test(check(Array(0, 1, 0), 1))
+    test(check(Array(0, 1, 1), 2))
+    test(check(Array(1, 0, 0), 0))
+    test(check(Array(0, 1, 0, 1), 3))
     test("all eastward") { check(Array.fill(100000)(0), 0) }
     test("all westward") { check(Array.fill(100000)(1), 0) }
     test("99999 cars eastward, 1 westward") { check(Array.fill(99999)(0) ++ Array(1), 99999) }

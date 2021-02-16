@@ -12,9 +12,9 @@ object CyclicRotationTests extends TestSuite {
     test("example 2") { check(Array(1, 2, 3, 4), 4, Array(1, 2, 3, 4)) }
     test("example 3") { check(Array(0, 0, 0), 4, Array(0, 0, 0)) }
     test("failing case") { check(Array(1, 1, 2, 3, 5), 42, Array(3, 5, 1, 1, 2)) }
-    test { check(Array(), 4, Array()) }
-    test { check(Array(1), 4, Array(1)) }
-    test { check(Array(1, 2, 3, 4), 3, Array(2, 3, 4, 1)) }
+    test(check(Array(), 4, Array()))
+    test(check(Array(1), 4, Array(1)))
+    test(check(Array(1, 2, 3, 4), 3, Array(2, 3, 4, 1)))
     val (min, max, maxN) = (-1000, 1000, 100)
     val step = max * 2 / maxN
     test("extreme") {

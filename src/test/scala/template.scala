@@ -7,7 +7,7 @@ object SolutionTests extends TestSuite {
   val f = Solution.solution _
 
   val tests = Tests {
-//    test { check(???, ???) }
+//    test(check(???, ???))
   }
 
   def check(a: Nothing, expected: Nothing): Unit = {
