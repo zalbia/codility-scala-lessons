@@ -1,6 +1,5 @@
 package lessons._08.leader._1
 
-import lessons._08.leader._2.Solution
 import utest._
 
 import scala.util.Random
@@ -20,9 +19,10 @@ object DominatorTests extends TestSuite {
     test(check(Array(0, 1, 0), Set(0, 2)))
     test(check(Array(0, 1, 1), Set(1, 2)))
     test(check(Array(1, 0, 1), Set(0, 2)))
-    test(check(Array.fill(100000)(Int.MinValue), Set(0)))
-    test(check(Array.fill(100000)(Int.MaxValue), Set(0)))
-    test(check(Array.fill(50000)(Int.MinValue) ++ Array.fill(50000)(Int.MaxValue), Set(-1)))
+    val maxN = 100000
+    test(check(Array.fill(maxN)(Int.MinValue), Set(0)))
+    test(check(Array.fill(maxN)(Int.MaxValue), Set(0)))
+    test(check(Array.fill(maxN / 2)(Int.MinValue) ++ Array.fill(maxN / 2)(Int.MaxValue), Set(-1)))
   }
 
   def check(a: Array[Int], options: Set[Int]): Unit = {
