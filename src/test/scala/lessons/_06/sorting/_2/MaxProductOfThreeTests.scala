@@ -14,12 +14,12 @@ object MaxProductOfThreeTests extends TestSuite {
     test(check(Array(1, 1, 1), 1))
     test(check(Array(1, 1, 1), 1))
     test(check(Array(-9, -8, 0, 0, 0, 0, 1, 5, 10), 720))
-    val maxResult      = 1000000000
-    val maxN           = 100000
-    val max            = 1000
-    def extremeLow     = Array(-max, -max, -999)
+    val maxResult    = 1000000000
+    val maxN         = 100000
+    val max          = 1000
+    def extremeLow   = Array(-max, -max, -999)
     def randomFiller = Array.fill(maxN - 6)(random.nextInt(999))
-    def extremeHigh    = Array(998, 999, max)
+    def extremeHigh  = Array(998, 999, max)
     test(check(Array(-max, -max, 0, 4, 5, 6, 9, 555, max), maxResult))
     test(check(extremeLow ++ randomFiller ++ extremeHigh, maxResult))
   }
