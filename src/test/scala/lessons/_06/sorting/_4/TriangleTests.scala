@@ -5,11 +5,11 @@ import scala.util.Random
 
 object TriangleTests extends TestSuite {
   val random = new Random()
-  val f = Solution.solution _
+  val f      = Solution.solution _
 
   val tests = Tests {
-    test("example1") { check(Array(10, 2, 5, 1, 8, 20), 1) }
-    test("example2") { check(Array(10, 50, 5, 1), 0) }
+    test("example1")(check(Array(10, 2, 5, 1, 8, 20), 1))
+    test("example2")(check(Array(10, 50, 5, 1), 0))
     test(check(Array(), 0))
     test(check(Array(0), 0))
     test(check(Array(0, 0), 0))

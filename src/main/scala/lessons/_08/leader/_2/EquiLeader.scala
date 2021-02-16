@@ -8,11 +8,11 @@ object Solution {
       val leftCounts  = a.scanLeft(0)(count(leader))
       val rightCounts = a.reverseIterator.scanLeft(0)(count(leader)).toArray
       leftCounts.indices.iterator.map { s =>
-        val sLeft      = s
-        val sRight     = a.length - s
-        val leftCount  = leftCounts(sLeft)
-        val rightCount = rightCounts(sRight)
-        val leftIsLeader = leftCount > sLeft / 2
+        val sLeft         = s
+        val sRight        = a.length - s
+        val leftCount     = leftCounts(sLeft)
+        val rightCount    = rightCounts(sRight)
+        val leftIsLeader  = leftCount > sLeft / 2
         val rightIsLeader = rightCount > sRight / 2
         leftIsLeader && rightIsLeader
       }.count(identity)

@@ -105,28 +105,26 @@ object StacksAndQueues {
     object procedural_style {
       def groceryStore(a: Array[Int]) = {
         var size, minPeople = 0
-        for (elem <- a) {
+        for (elem <- a)
           if (elem == 0)
             size += 1
           else {
             size -= 1
             minPeople = math.max(minPeople, -size)
           }
-        }
         minPeople
       }
     }
 
     object functional_style {
       def groceryStore(a: Array[Int]) = {
-        val (minPeople, _) = a.foldLeft((0, 0)) {
-          case ((minPeople, size), elem) =>
-            if (elem == 0)
-              (minPeople, size + 1)
-            else {
-              val newSize = size - 1
-              (math.max(minPeople, -newSize), newSize)
-            }
+        val (minPeople, _) = a.foldLeft((0, 0)) { case ((minPeople, size), elem) =>
+          if (elem == 0)
+            (minPeople, size + 1)
+          else {
+            val newSize = size - 1
+            (math.max(minPeople, -newSize), newSize)
+          }
         }
         minPeople
       }

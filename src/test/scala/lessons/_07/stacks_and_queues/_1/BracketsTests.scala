@@ -5,18 +5,18 @@ import scala.util.Random
 
 object BracketsTests extends TestSuite {
   val random = new Random()
-  val f = Solution.solution _
+  val f      = Solution.solution _
 
   val tests = Tests {
-    test("example-balanced") { check("{[()()]}", 1) }
-    test("example-imbalanced") { check("([)()]", 0) }
+    test("example-balanced")(check("{[()()]}", 1))
+    test("example-imbalanced")(check("([)()]", 0))
     test(check("", 1))
     test(check("{", 0))
     test(check("}", 0))
     test(check("}}}}}", 0))
     test(check("}" * 200000, 0))
     test(check("(" * 200000, 0))
-    test(check("()" * 100000, 1) )
+    test(check("()" * 100000, 1))
     test(check("(" * 100000 ++ ")" * 100000, 1))
   }
 
@@ -25,4 +25,3 @@ object BracketsTests extends TestSuite {
     assert(result == expected)
   }
 }
-

@@ -5,9 +5,9 @@ import scala.util.Random
 
 object FishTests extends TestSuite {
   val random = new Random()
-  val f = Solution.solution _
+  val f      = Solution.solution _
 
-  val extreme = 10000 to 1000000000 by 10000
+  val extreme        = 10000 to 1000000000 by 10000
   val reverseExtreme = extreme.reverse
 
   val tests = Tests {

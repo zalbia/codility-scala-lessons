@@ -4,7 +4,7 @@ import utest._
 import scala.util.Random
 
 object MaxCountersTests extends TestSuite {
-  val random = new Random()
+  val random    = new Random()
   val solutions = Array(
     Solution.solution _,
     OopAlternative.solution _,
@@ -23,13 +23,12 @@ object MaxCountersTests extends TestSuite {
     }
   }
 
-  private def check(n: Int, a: Array[Int], expected: Array[Int]): Unit = {
+  private def check(n: Int, a: Array[Int], expected: Array[Int]): Unit =
     solutions.foreach { f =>
-      val maxCounters = f(n, a).toList
-      val length = maxCounters.length
+      val maxCounters  = f(n, a).toList
+      val length       = maxCounters.length
       assert(length == n)
       val expectedList = expected.toList
       assert(maxCounters == expectedList)
     }
-  }
 }

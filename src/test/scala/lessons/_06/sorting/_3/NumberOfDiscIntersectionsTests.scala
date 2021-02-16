@@ -5,10 +5,10 @@ import scala.util.Random
 
 object NumberOfDiscIntersectionsTests extends TestSuite {
   val random = new Random()
-  val f = Solution.solution _
+  val f      = Solution.solution _
 
   val tests = Tests {
-    test("example") { check(Array(1, 5, 2, 1, 4, 0), 11) }
+    test("example")(check(Array(1, 5, 2, 1, 4, 0), 11))
     // TODO: add more tests
   }
 

@@ -5,7 +5,7 @@ import scala.util.Random
 
 object CountDivTests extends TestSuite {
   val random = new Random()
-  val f = Solution.solution _
+  val f      = Solution.solution _
 
   val tests = Tests {
     test(check(0, 1, 1, 2))

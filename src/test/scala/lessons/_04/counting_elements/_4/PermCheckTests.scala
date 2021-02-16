@@ -5,7 +5,7 @@ import scala.util.Random
 
 object PermCheckTests extends TestSuite {
   val random = new Random()
-  val f = Solution.solution _
+  val f      = Solution.solution _
 
   val tests = Tests {
     test(check(Array(2), 0))

@@ -162,9 +162,8 @@ object TimeComplexity {
       object for_loop {
         def sumTo(n: Int) = {
           var result = 0
-          for (i <- 0 until n) {
+          for (i <- 0 until n)
             result += i + 1
-          }
           result
         }
       }

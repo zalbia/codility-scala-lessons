@@ -4,7 +4,7 @@ import utest._
 import scala.util.Random
 
 object FrogJumpTests extends TestSuite {
-  val f = Solution.solution _
+  val f      = Solution.solution _
   val random = new Random()
 
   val tests = Tests {

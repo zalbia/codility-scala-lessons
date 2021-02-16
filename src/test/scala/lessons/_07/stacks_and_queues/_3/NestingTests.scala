@@ -5,11 +5,11 @@ import scala.util.Random
 
 object NestingTests extends TestSuite {
   val random = new Random()
-  val f = Solution.solution _
+  val f      = Solution.solution _
 
   val tests = Tests {
-    test("example1") { check("(()(())())", 1) }
-    test("example2") { check("())", 0) }
+    test("example1")(check("(()(())())", 1))
+    test("example2")(check("())", 0))
     test(check("", 1))
     test(check("(", 0))
     test(check(")", 0))
@@ -30,4 +30,3 @@ object NestingTests extends TestSuite {
     assert(result == expected)
   }
 }
-

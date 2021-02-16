@@ -24,11 +24,10 @@ object BinaryGapTests extends TestSuite {
     test(check(1073741825, 29))
   }
 
-  private def check(n: Int, expected: Int): Unit = {
+  private def check(n: Int, expected: Int): Unit =
     solutions.foreach { f =>
       println(s"binary($n): ${n.toBinaryString}")
       val actual = f(n)
       assert(actual == expected)
     }
-  }
 }

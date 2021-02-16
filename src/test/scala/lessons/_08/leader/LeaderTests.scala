@@ -18,7 +18,7 @@ object LeaderTests extends TestSuite {
   )
 
   val tests = Tests {
-    test("example") { check(Array(6, 8, 4, 6, 8, 6, 6), 6) }
+    test("example")(check(Array(6, 8, 4, 6, 8, 6, 6), 6))
     test(check(Array(), -1))
     test(check(Array(1), 1))
     test(check(Array(0, 0), 0))
@@ -29,11 +29,9 @@ object LeaderTests extends TestSuite {
     test(check(Array(1, 0, 1), 1))
   }
 
-  def check(a: Array[Int], expected: Int): Unit = {
+  def check(a: Array[Int], expected: Int): Unit =
     solutions.foreach { f =>
       val result = f(a)
       assert(result == expected)
     }
-  }
 }
-
