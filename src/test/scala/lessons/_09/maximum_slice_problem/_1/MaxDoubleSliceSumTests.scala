@@ -13,7 +13,7 @@ object MaxDoubleSliceSumTests extends TestSuite {
     test("n = 3")(check(Array(0, 0, 0), 0))
     test("ascending")(check(Array(0, 1, 2, 3, 4, 5), 9))
     test("descending")(check(Array(5, 4, 3, 2, 1, 0), 9))
-    test("4* -1s")(check(Array(-1,-1,-1,-1), 0))
+    test("4* -1s")(check(Array(-1, -1, -1, -1), 0))
     test("0s, 1s, -1s")(check(Array(0, 1, 1, -1, 1, 1, 1, 1, -1, 1, 0), 6))
     test("2 mid negatives")(check(Array(0, 1, 2, -1, 3, 4, 5, 6, 7, -1, 8, 9, 0), 44))
     test("one negative bigger")(check(Array(0, 9, 8, -1, 7, 6, 5, 4, 3, -2, 2, 1, 0), 44))
