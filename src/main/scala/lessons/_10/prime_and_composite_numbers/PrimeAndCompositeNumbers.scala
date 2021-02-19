@@ -90,7 +90,7 @@ object PrimeAndCompositeNumbers {
     }
 
     object log_n { // O(log n)
-      def countTails(n: Int): Int = {
+      def countTails(n: Int): Int =
         if (n < 2) n
         else {
           val small = countTails(n >> 2) << 1
@@ -98,7 +98,6 @@ object PrimeAndCompositeNumbers {
           if (large * large > n) small
           else large
         }
-      }
     }
 
     object constant { // O(1)
