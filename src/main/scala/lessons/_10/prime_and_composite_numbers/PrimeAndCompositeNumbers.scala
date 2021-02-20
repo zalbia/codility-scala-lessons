@@ -20,13 +20,13 @@ object PrimeAndCompositeNumbers {
     }
 
     object functional_style {
+      import Iterator.from
+
       def divisors(n: Int): Int = {
-        val (count, finalSquare) = Iterator
-          .from(1)
+        val (count, finalSquare) = from(1)
           .takeWhile(i => i * i <= n)
           .foldLeft((0, 1)) { case ((count, _), i) =>
-            val square = i * i
-            (if (n % i == 0 && square != n) count + 2 else count, square)
+            (if (n % i == 0 && i * i != n) count + 2 else count, i * i)
           }
         if (finalSquare == n) count + 1 else count
       }
@@ -49,8 +49,10 @@ object PrimeAndCompositeNumbers {
     }
 
     object functional_style {
+      import Iterator.from
+
       def isPrime(n: Int): Boolean =
-        Iterator.from(2).takeWhile(i => i * i <= n).forall(n % _ != 0)
+        from(2).takeWhile(i => i * i <= n).forall(n % _ != 0)
     }
   }
 
@@ -62,7 +64,7 @@ object PrimeAndCompositeNumbers {
         // much faster because array
         def countTails(n: Int): Int = {
           var tails = 0
-          val coins = Array.ofDim[Int](n + 1)
+          val coins = Array.fill(n + 1)(0)
           for (i <- 1 to n) {
             var k = i
             while (k <= n) {
@@ -76,16 +78,20 @@ object PrimeAndCompositeNumbers {
       }
 
       object functional_style {
+        import Iterator.iterate
+
         // much slower because vector
-        def countTails(n: Int): Int = (1 to n)
-          .foldLeft((0, Vector.fill(n + 1)(0))) { case ((tails, coins), i) =>
-            val coinsReversed =
-              Iterator.iterate(i)(_ + i).takeWhile(_ <= n).foldLeft(coins) { (coins, k) =>
-                coins.updated(k, (coins(k) + 1) % 2)
-              }
-            (tails + coinsReversed(i), coinsReversed)
-          }
-          ._1
+        def countTails(n: Int): Int = {
+          val (tails, _) = (1 to n)
+            .foldLeft((0, Vector.fill(n + 1)(0))) { case ((tails, coins), i) =>
+              val flippedCoins =
+                iterate(i)(_ + i).takeWhile(_ <= n).foldLeft(coins) { (coins, k) =>
+                  coins.updated(k, (coins(k) + 1) % 2)
+                }
+              (tails + flippedCoins(i), flippedCoins)
+            }
+          tails
+        }
       }
     }
 
