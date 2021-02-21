@@ -41,7 +41,7 @@ object SieveOfEratosthenes {
   object factorization {
 
     object procedural_style {
-      def mkSieve(n: Int) = {
+      def mkSmallestPrimeSieve(n: Int): Array[Int] = {
         val sieve = Array.ofDim[Int](n + 1)
         var i     = 2
         while (i * i <= n) {
@@ -58,9 +58,9 @@ object SieveOfEratosthenes {
         sieve
       }
 
-      def factorize(n: Int) = {
+      def factorize(n: Int): Array[Int] = {
         val primeFactors = new ArrayBuffer[Int]()
-        val sieve        = mkSieve(n)
+        val sieve        = mkSmallestPrimeSieve(n)
         var x            = n
         while (sieve(x) > 0) {
           primeFactors += sieve(x)
@@ -69,6 +69,19 @@ object SieveOfEratosthenes {
         primeFactors += x
         primeFactors.toArray
       }
+    }
+
+    object functional_style {
+      import Iterator.{ from, iterate }
+
+      def mkSmallestPrimeSieve(n: Int): Vector[Int] =
+        from(2)
+          .takeWhile(i => i * i <= n)
+          .foldLeft(Vector.fill(n + 1)(0)) { (sieve, i) =>
+            if (sieve(i) == 0)
+              iterate(i * i)(_ + i).foldLeft(sieve)(_.updated(_, i))
+            else sieve
+          }
     }
   }
 }

@@ -22,7 +22,7 @@ object Solution {
     }.map(_ - 1).getOrElse(0)
   }
 
-  private def findPeaks(a: Array[Int]): Array[Int] = {
+  private def findPeaks(a: Array[Int]): Array[Int] = { // T: O(n) | S: O(n)
     val peaks = new ArrayBuffer[Int](a.length - 2)
     for (i <- 1 until a.length - 1)
       if (a(i) > a(i - 1) && a(i) > a(i + 1))
