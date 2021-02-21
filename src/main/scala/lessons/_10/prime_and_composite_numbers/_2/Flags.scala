@@ -4,35 +4,29 @@ object Solution {
   import Iterator.from
   import scala.collection.mutable.ArrayBuffer
 
-  def solution(a: Array[Int]): Int = // 100% | T: O(sqrt(n^2)) -> O(n) | S: O(n)
-    if (a.length < 3) 0
-    else {
-      val peaks = mkPeaks(a)
-      if (peaks.length < 2)
-        peaks.length
-      else {
-        from(2).find { k =>
-          var count = 1
-          var p     = peaks.head
-          for (q <- peaks if count <= k)
-            if (q - p >= k) {
-              p = q
-              count += 1
-            }
-          count < k
-        }.map(_ - 1).getOrElse(0)
-      }
-    }
+  def solution(a: Array[Int]): Int = { // 100% | T: O(sqrt(n^2)) -> O(n) | S: O(n)
+    if (a.length < 3)
+      return 0
+    val peaks = findPeaks(a)
+    if (peaks.length < 2)
+      return peaks.length
+    from(2).find { k => // O(sqrt n)
+      var p     = peaks.head
+      var flags = 1
+      for (q <- peaks if flags <= k) // O(n)
+        if (q - p >= k) {
+          p = q
+          flags += 1
+        }
+      flags < k
+    }.map(_ - 1).getOrElse(0)
+  }
 
-  private def mkPeaks(a: Array[Int]): Array[Int] = {
+  private def findPeaks(a: Array[Int]): Array[Int] = {
     val peaks = new ArrayBuffer[Int](a.length - 2)
-    for (i <- 1 until a.length - 1) {
-      val x = a(i - 1)
-      val y = a(i)
-      val z = a(i + 1)
-      if (y > x && y > z)
+    for (i <- 1 until a.length - 1)
+      if (a(i) > a(i - 1) && a(i) > a(i + 1))
         peaks += i
-    }
     peaks.toArray
   }
 }
