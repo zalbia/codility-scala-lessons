@@ -71,6 +71,24 @@ object SieveOfEratosthenes {
       }
     }
 
+    object iterator_foreach {
+      import Iterator.{ from, iterate }
+
+      def mkSmallestPrimeSieve(n: Int): Array[Int] = {
+        val sieve = Array.ofDim[Int](n + 1)
+        for {
+          i <- from(2).takeWhile(i => i * i <= n) if sieve(i) == 0
+          k <- iterate(i * i)(_ + i).takeWhile(_ <= n) if sieve(k) == 0
+        } sieve(k) = i
+        sieve
+      }
+
+      def factorize(n: Int): Array[Int] = {
+        val sieve = mkSmallestPrimeSieve(n)
+        iterate(n)(x => x / sieve(x)).takeWhile(sieve(_) > 0).toArray
+      }
+    }
+
     object functional_style {
       import Iterator.{ from, iterate }
 
@@ -82,6 +100,11 @@ object SieveOfEratosthenes {
               iterate(i * i)(_ + i).foldLeft(sieve)(_.updated(_, i))
             else sieve
           }
+
+      def factorize(n: Int): Array[Int] = {
+        val sieve = mkSmallestPrimeSieve(n)
+        iterate(n)(x => x / sieve(x)).takeWhile(sieve(_) > 0).toArray
+      }
     }
   }
 }
