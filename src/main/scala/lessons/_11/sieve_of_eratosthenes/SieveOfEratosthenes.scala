@@ -84,26 +84,44 @@ object SieveOfEratosthenes {
       }
 
       def factorize(n: Int): Array[Int] = {
-        val sieve = mkSmallestPrimeSieve(n)
-        iterate(n)(x => x / sieve(x)).takeWhile(sieve(_) > 0).toArray
+        val sieve        = mkSmallestPrimeSieve(n)
+        val primeFactors = new ArrayBuffer[Int]()
+        var x            = n
+        for (n <- iterate(n)(x => x / sieve(x)).takeWhile(sieve(_) > 0)) {
+          primeFactors += sieve(n)
+          x = n
+        }
+        (primeFactors += x / primeFactors.last).toArray
       }
     }
 
     object functional_style {
       import Iterator.{ from, iterate }
 
+      // cleaner way to do this would be with a state monad
       def mkSmallestPrimeSieve(n: Int): Vector[Int] =
         from(2)
           .takeWhile(i => i * i <= n)
           .foldLeft(Vector.fill(n + 1)(0)) { (sieve, i) =>
             if (sieve(i) == 0)
-              iterate(i * i)(_ + i).foldLeft(sieve)(_.updated(_, i))
+              iterate(i * i)(_ + i)
+                .takeWhile(_ <= n)
+                .foldLeft(sieve) { (sieve, k) =>
+                  if (sieve(k) == 0) sieve.updated(k, i)
+                  else sieve
+                }
             else sieve
           }
 
       def factorize(n: Int): Array[Int] = {
         val sieve = mkSmallestPrimeSieve(n)
-        iterate(n)(x => x / sieve(x)).takeWhile(sieve(_) > 0).toArray
+        iterate(n)(x => x / sieve(x))
+          .takeWhile(sieve(_) > 0)
+          .foldLeft(List.empty[Int]) { (primeFactors, x) =>
+            val next = x / sieve(x)
+            if (sieve(next) == 0) next :: sieve(x) :: primeFactors
+            else sieve(x) :: primeFactors
+          }.toArray
       }
     }
   }
