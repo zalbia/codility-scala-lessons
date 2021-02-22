@@ -4,7 +4,7 @@ import scala.collection.mutable.ArrayBuffer
 
 object SieveOfEratosthenes {
 
-  object sieve_of_eratosthenes {
+  object sieve_of_eratosthenes { // T: O(n log log n) | S: O(n)
 
     object procedural_style {
       def sieve(n: Int): Array[Boolean] = {
@@ -41,7 +41,7 @@ object SieveOfEratosthenes {
   object factorization {
 
     object procedural_style {
-      def mkSmallestPrimeSieve(n: Int): Array[Int] = {
+      def mkSmallestPrimeSieve(n: Int): Array[Int] = { // T: O(n) | S: O(n)
         val sieve = Array.ofDim[Int](n + 1)
         var i     = 2
         while (i * i <= n) {
@@ -58,9 +58,8 @@ object SieveOfEratosthenes {
         sieve
       }
 
-      def factorize(n: Int): Array[Int] = {
+      def factorize(n: Int)(sieve: Array[Int]): Array[Int] = {  // T: O(log n) | S: O(1)
         val primeFactors = new ArrayBuffer[Int]()
-        val sieve        = mkSmallestPrimeSieve(n)
         var x            = n
         while (sieve(x) > 0) {
           primeFactors += sieve(x)
@@ -83,8 +82,7 @@ object SieveOfEratosthenes {
         sieve
       }
 
-      def factorize(n: Int): Array[Int] = {
-        val sieve        = mkSmallestPrimeSieve(n)
+      def factorize(n: Int)(sieve: Array[Int]): Array[Int] = {
         val primeFactors = new ArrayBuffer[Int]()
         var x            = n
         for (n <- iterate(n)(x => x / sieve(x)).takeWhile(sieve(_) > 0)) {
@@ -113,8 +111,7 @@ object SieveOfEratosthenes {
             else sieve
           }
 
-      def factorize(n: Int): Array[Int] = {
-        val sieve = mkSmallestPrimeSieve(n)
+      def factorize(n: Int)(sieve: Array[Int]): Array[Int] = {
         iterate(n)(x => x / sieve(x))
           .takeWhile(sieve(_) > 0)
           .foldLeft(List.empty[Int]) { (primeFactors, x) =>
