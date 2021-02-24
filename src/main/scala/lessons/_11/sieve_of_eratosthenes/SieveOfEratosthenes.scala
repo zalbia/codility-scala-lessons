@@ -58,7 +58,7 @@ object SieveOfEratosthenes {
         sieve
       }
 
-      def factorize(n: Int)(sieve: Array[Int]): Array[Int] = {  // T: O(log n) | S: O(1)
+      def factorize(n: Int)(sieve: Array[Int]): Array[Int] = { // T: O(log n) | S: O(1)
         val primeFactors = new ArrayBuffer[Int]()
         var x            = n
         while (sieve(x) > 0) {
@@ -111,15 +111,15 @@ object SieveOfEratosthenes {
             else sieve
           }
 
-      def factorize(n: Int)(sieve: Array[Int]): Array[Int] = {
+      def factorize(n: Int)(sieve: Array[Int]): Array[Int] =
         iterate(n)(x => x / sieve(x))
           .takeWhile(sieve(_) > 0)
           .foldLeft(List.empty[Int]) { (primeFactors, x) =>
             val next = x / sieve(x)
             if (sieve(next) == 0) next :: sieve(x) :: primeFactors
             else sieve(x) :: primeFactors
-          }.toArray
-      }
+          }
+          .toArray
     }
   }
 }
