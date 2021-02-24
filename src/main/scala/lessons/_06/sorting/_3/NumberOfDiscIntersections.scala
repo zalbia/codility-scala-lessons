@@ -1,6 +1,6 @@
 package lessons._06.sorting._3
 
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable
 import scala.util.Sorting
 
 // N is an integer within the range [0..100,000];
@@ -24,7 +24,7 @@ object Solution {
 
   // sort range-points then return border order
   private def borders(a: Array[Int]) = {
-    val buffer = new ArrayBuffer[(Long, Boolean)](a.length * 2)
+    val buffer = new mutable.ArrayBuffer[(Long, Boolean)](a.length * 2)
     for (i <- a.indices) {
       buffer.append((i.toLong - a(i), true))
       buffer.append((i.toLong + a(i), false))

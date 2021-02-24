@@ -1,5 +1,6 @@
 package lessons._13.fibonacci_numbers
 
+import java.math.RoundingMode
 import scala.annotation.tailrec
 
 object FibonacciNumbers {
@@ -46,14 +47,42 @@ object FibonacciNumbers {
   }
 
   object fibonacci_formula {
-    import java.math.{ BigDecimal => JBigDecimal }
-    import java.math.{ MathContext => JMathContext }
+    import java.math.{ BigDecimal => JBigDecimal, MathContext => JMathContext }
 
+    // gives wrong answers past n = 163
     def fibonacci(n: Int): BigInt = {
-      val sqrt5 = BigDecimal(JBigDecimal.valueOf(5L).sqrt(JMathContext.DECIMAL128))
-      val a = ((1 + sqrt5) / 2) pow n
-      val b = ((1 - sqrt5) / 2) pow n
+      val sqrt5 = BigDecimal(JBigDecimal.valueOf(5L).sqrt(new JMathContext(1000, RoundingMode.HALF_UP)))
+      val a     = ((1 + sqrt5) pow n) / (BigDecimal(2) pow n)
+      val b     = ((1 - sqrt5) pow n) / (BigDecimal(2) pow n)
       ((a - b) / sqrt5).toBigInt
+    }
+  }
+
+  object sum_of_two_fibonacci_numbers {
+
+    def fibonacciSum(n: Int, max: Int): Set[(Int, Int)] = {
+      val fibs = fibonacciNumsUpTo(max).toSet
+      fibs
+        .filter(m => fibs(n - m))
+        .foldLeft(Set.empty[Int])((as, a) => if (as(a) || as(n - a)) as else as + a)
+        .map(a => (a, n - a))
+    }
+
+    def fibonacciNumsUpTo(n: Int): Iterator[Int] = {
+      if (n <= 1)
+        return Iterator.single(n)
+
+      new Iterator[Int] {
+        var a                = 0
+        var b                = 1
+        def hasNext: Boolean = a <= n
+        def next(): Int = {
+          val next = a + b
+          a = b
+          b = next
+          a
+        }
+      }
     }
   }
 }
