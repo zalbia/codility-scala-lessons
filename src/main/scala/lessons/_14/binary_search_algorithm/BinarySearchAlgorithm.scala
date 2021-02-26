@@ -7,6 +7,7 @@ object BinarySearchAlgorithm {
   object binary_search { // T: O(log n) assuming sorted array | S: O(1)
 
     object procedural_style {
+
       /**
        * @param a sorted array of ints
        * @param x int to find
