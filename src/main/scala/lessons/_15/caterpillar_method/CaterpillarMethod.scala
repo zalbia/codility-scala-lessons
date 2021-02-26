@@ -73,16 +73,16 @@ object CaterpillarMethod {
     }
 
     object functional_style {
-
       def countTriangles(a: Array[Int]) =
         a.indices.map { x =>
-          a.indices
-            .drop(x + 1)
-            .foldLeft((x + 2, 0)) { case ((z, count), y) =>
-              val zz = z + a.indices.drop(z).count(z => a(x) + a(y) > a(z))
-              (zz, count + zz - y - 1)
-            }
-            ._2
+          val yRange     = a.indices.drop(x + 1)
+          val zStart     = yRange.foldLeft((x + 2, 0)) _
+          val (_, count) = zStart { case ((z, count), y) =>
+            val zRange = a.indices.drop(z)
+            val zLast  = z + zRange.count(z => a(x) + a(y) > a(z))
+            (zLast, count + zLast - y - 1)
+          }
+          count
         }.sum
     }
   }
