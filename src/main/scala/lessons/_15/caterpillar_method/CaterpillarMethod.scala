@@ -40,17 +40,15 @@ object CaterpillarMethod {
 
     object functional_style {
 
-      def caterpillarMethod(a: Array[Int], sum: Int): Boolean = {
-        val n = a.length
+      def caterpillarMethod(a: Array[Int], sum: Int): Boolean =
         a.iterator
           .scanLeft((0, 0)) { case ((front, total), back) =>
-            def forward  = a.iterator.slice(front, n).scanLeft(total)(_ + _).takeWhile(_ <= sum)
+            def forward  = a.iterator.slice(front, a.length).scanLeft(total)(_ + _).takeWhile(_ <= sum)
             val newTotal = forward.reduce((_, total) => total)
             val newFront = front + forward.size - 1
             (newFront, if (newTotal == sum) newTotal else newTotal - back)
           }
           .exists { case (_, total) => total == sum }
-      }
     }
   }
 
