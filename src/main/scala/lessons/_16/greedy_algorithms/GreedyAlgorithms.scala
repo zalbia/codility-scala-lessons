@@ -85,7 +85,7 @@ object GreedyAlgorithms {
               .filter(_ => fatsos1.isEmpty)
               .map(last => (skinnies1.popRight._2, fatsos1.pushRight(last)))
               .getOrElse((skinnies1, fatsos1))
-            val start = (skinnies2, fatsos2.balanced)
+            val start                = (skinnies2, fatsos2.balanced)
             val (skinnies3, fatsos3) = iterate(start) { case (skinnies, fatsos) =>
               val (fatso, fatsos1) = fatsos.popLeft
               val skinnies1        = fatso.map(skinnies.pushRight).getOrElse(skinnies)
@@ -95,6 +95,36 @@ object GreedyAlgorithms {
             }.fold(start)((_, next) => next)
             (skinnies3, fatsos3, canoes1)
           }.takeWhile { case (skinnies, fatsos, _) => skinnies.nonEmpty || fatsos.nonEmpty }
+            .reduce((_, next) => next)
+          canoes
+        }
+      }
+    }
+
+    object greedy_canoeist_shorter {
+
+      object procedural_style {
+        def greedyCanoeist(w: Array[Int], k: Int) = {
+          var canoes = 0
+          var j      = 0
+          var i      = w.length - 1
+          while (i >= j) {
+            if (w(i) + w(j) <= k)
+              j += 1
+            canoes += 1
+            i -= 1
+          }
+          canoes
+        }
+      }
+
+      object functional_style {
+        def greedyCanoeist(w: Array[Int], k: Int) = {
+          val (_, _, canoes) = Iterator
+            .iterate((0, 0, w.length - 1)) { case (canoes, j, i) =>
+              (canoes + 1, if (w(i) + w(j) <= k) j + 1 else j, i - 1)
+            }
+            .takeWhile { case (_, j, i) => i >= j }
             .reduce((_, next) => next)
           canoes
         }
