@@ -4,7 +4,7 @@ import scala.collection.mutable.ListBuffer
 
 /**
  * A minimal deque implementation. Allows rebuilding as an all-left, all-right,
- * at the middle, or at some pivot.
+ * even split, or at some other pivot for better performance in some use-cases.
  *
  * Queue code copied from {@link scala.collection.immutable.Queue}
  */
