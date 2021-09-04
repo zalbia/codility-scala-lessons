@@ -16,6 +16,8 @@ object Solution {
           survivors.addDownstream(fish)
         case (survivors, (fish, Going.Upstream))                  =>
           survivors.tryToEat(fish)
+        case (survivors, _)                                       =>
+          survivors
       }
       .total
 
