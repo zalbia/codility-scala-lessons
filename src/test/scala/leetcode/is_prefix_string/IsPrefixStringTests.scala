@@ -9,6 +9,7 @@ object SolutionTests extends TestSuite {
   val f      = Solution.isPrefixString _
 
   val tests = Tests {
+    test(check("a", Array("a"), true))
     test(check("iloveleetcode", Array("i", "love", "leetcode", "apples"), true))
     test(check("iloveleetcode", Array("apples", "i", "love", "leetcode"), false))
     test(check("a", Array("aa", "aaaa", "bananas"), false))
